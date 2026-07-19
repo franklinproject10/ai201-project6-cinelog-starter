@@ -43,9 +43,15 @@ pytest tests/ -v — all 5 tests pass.
 
 ## Comment 6 — Rebase
 
-**What conflicted:**
-**How I resolved it:**
-**How I verified no conflict remains:**
+**What conflicted:** .gitignore had an add/add conflict — both my branch
+and main added a .gitignore at the same time with slightly different
+ordering. WatchlistEntry was also missing from models.py after the rebase
+— the UUID refactor on main replaced the whole file and dropped it.
+**How I resolved it:** Merged both .gitignore versions keeping all entries.
+Restored WatchlistEntry to models.py with film_id as db.String(36) instead
+of db.Integer to match the post-refactor UUID convention.
+**How I verified no conflict remains:** pytest tests/ -v — all 5 tests pass.
+git log --oneline shows linear history with no merge commits.
 
 ## PR Description
 

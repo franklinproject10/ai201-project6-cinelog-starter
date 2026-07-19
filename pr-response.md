@@ -2,7 +2,12 @@
 
 ## AI Usage
 
-<!-- Fill in at the end -->
+Used Claude to orient myself to the codebase — pasted add_to_collection()
+and test_collection.py and asked for pattern explanations before writing
+any code. Used Claude to stress-test my Comment 4 and Comment 5 arguments
+after drafting them myself. Used Claude for terminal guidance throughout
+(git rebase steps, conflict resolution). All design decisions and written
+responses are my own reasoning.
 
 ## Comment 1 — Rename
 
@@ -37,9 +42,27 @@ pytest tests/ -v — all 5 tests pass.
 
 ## Comment 5 — Sort order
 
-**My position:**
-**Reasoning:**
-**Engagement with reviewer's point:**
+## Comment 5 — Sort order
+
+**My position:** Agree with the reviewer — switch get_watchlist() from
+alphabetical to date_added descending, newest first.
+**Reasoning:** Alphabetical sorting is a strange default for a list that's
+fundamentally about intent and timing — "I want to watch this" doesn't have
+anything to do with the letter a title starts with, and sorting that way
+actively buries the thing a user just added under whatever happens to start
+with "A." There's also a consistency argument specific to this codebase:
+get_collection() already sorts by date_added descending. Watchlist and
+collection are the same kind of object from the user's point of view — a
+list of films tied to a date — and having one sorted newest-first while the
+other is sorted alphabetically is an inconsistency with no explanation
+behind it.
+**Engagement with reviewer's point:** The reviewer's reasoning — "most users
+want to see what they added recently" — is an argument about recency being
+the useful signal, and I agree. The one case I considered: a film added
+months ago and still unwatched gets pushed to the bottom. But that's not an
+argument for a different default sort — it's an argument for a filter feature
+the sort order alone can't solve. Flipping to oldest-first just moves the
+same problem to whoever added something recently.
 
 ## Comment 6 — Rebase
 
